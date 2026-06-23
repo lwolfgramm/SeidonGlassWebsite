@@ -1,4 +1,4 @@
-# Seidon Glass Website — Developer README
+# Seidon Glass Website README
 
 ## File Map
 
