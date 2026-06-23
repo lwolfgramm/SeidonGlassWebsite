@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Gallery | Glass Installation Photos | Seidon Glass Salt Lake City</title>
+  <meta name="description" content="Browse Seidon Glass project photos — frameless shower doors, mirrors, commercial glazing, and storefront installations across Salt Lake City and the Wasatch Front.">
+  <link rel="canonical" href="https://www.seidonglass.com/projects/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 36px;
+      justify-content: center;
+    }
+    .filter-btn {
+      padding: 8px 20px;
+      border-radius: 40px;
+      border: 1.5px solid var(--gray-200);
+      background: transparent;
+      font-family: var(--font-body);
+      font-size: .875rem;
+      font-weight: 500;
+      color: var(--gray-600);
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .filter-btn.active,
+    .filter-btn:hover {
+      background: var(--sky);
+      border-color: var(--sky);
+      color: var(--white);
+    }
+    .gallery-page-item .gallery-placeholder {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--gray-200) 0%, var(--gray-100) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gray-400);
+      font-size: .8rem;
+      font-style: italic;
+      text-align: center;
+      padding: 8px;
+    }
+    .gallery-page-item { position: relative; }
+    .gallery-page-item:hover .gallery-page-overlay { opacity: 1; }
+    .gallery-page-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10,21,37,.75) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity .3s;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 16px;
+    }
+    .gallery-page-overlay strong {
+      color: var(--white);
+      font-size: .9rem;
+      display: block;
+    }
+    .gallery-page-overlay span {
+      color: rgba(255,255,255,.65);
+      font-size: .78rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header id="header">
+    <div class="container">
+      <nav class="nav-inner">
+        <a href="../index.html" class="logo" aria-label="Seidon Glass Home">
+          <div class="logo-mark">SG</div>
+          <span class="logo-text">Seidon <span>Glass</span></span>
+        </a>
+        <ul class="nav-links" role="list">
+          <li><a href="../services/index.html">Services</a></li>
+          <li><a href="index.html">Projects</a></li>
+          <li><a href="../about.html">About</a></li>
+          <li><a href="../contact.html">Contact</a></li>
+        </ul>
+        <div class="nav-cta">
+          <a class="nav-phone" href="tel:8015550000">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.69 12a19.79 19.79 0 01-3.07-8.67A2 2 0 013.6 1.27h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L7.91 8.81a16 16 0 006.29 6.29l.91-.95a2 2 0 012.11-.45c.907.338 1.85.573 2.81.7a2 2 0 011.72 2.02z"/></svg>
+            (801) 555-0000
+          </a>
+          <a href="../index.html#estimate" class="btn btn-primary">Free Estimate</a>
+        </div>
+        <button class="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+      </nav>
+      <nav class="mobile-menu" aria-label="Mobile navigation">
+        <a href="../services/index.html">Services</a>
+        <a href="index.html">Projects</a>
+        <a href="../about.html">About</a>
+        <a href="../contact.html">Contact</a>
+        <a href="tel:8015550000" class="btn btn-gold">(801) 555-0000</a>
+        <a href="../index.html#estimate" class="btn btn-primary">Request Free Estimate</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Portfolio</span>
+      <h1>Our Work</h1>
+      <p>Photos from recent residential and commercial glass installations across Salt Lake City and the Wasatch Front.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+
+      <!-- Filter buttons — add JS to filter by category if desired -->
+      <div class="filter-bar" role="group" aria-label="Filter projects by type">
+        <button class="filter-btn active">All Projects</button>
+        <button class="filter-btn">Shower Doors</button>
+        <button class="filter-btn">Mirrors</button>
+        <button class="filter-btn">Commercial</button>
+        <button class="filter-btn">Storefronts</button>
+      </div>
+
+      <!--
+        HOW TO ADD PHOTOS:
+        1. Take good photos of your completed work (natural light, landscape orientation)
+        2. Resize to max 1200px wide and save as .webp (free tool: squoosh.app)
+        3. Drop files into images/projects/ folder
+        4. Replace the <div class="gallery-placeholder"> inside each .gallery-page-item
+           with: <img src="../images/projects/your-photo.webp" alt="Descriptive alt text" loading="lazy">
+        5. Update the overlay text with the project name and location
+      -->
+
+      <div class="gallery-page-grid">
+
+        <div class="gallery-page-item">
+          <div class="gallery-placeholder">images/projects/project-1.webp<br>1200×900px recommended</div>
+          <div class="gallery-page-overlay">
+            <strong>Frameless Shower — New Build</strong>
+            <span>Sandy, UT</span>
+          </div>
+        </div>
+
+        <div class="gallery-page-item">
+          <div class="gallery-placeholder">images/projects/project-2.webp</div>
+          <div class="gallery-page-overlay">
+            <strong>Commercial Storefront</strong>
+            <span>Salt Lake City, UT</span>
+          </div>
+        </div>
+
+        <div class="gallery-page-item">
+          <div class="gallery-placeholder">images/projects/project-3.webp</div>
+          <div class="gallery-page-overlay">
+            <strong>Vanity Mirror Installation</strong>
+            <span>Draper, UT</span>
+          </div>
+        </div>
+
+        <div class="gallery-page-item">
+          <div class="gallery-placeholder">images/projects/project-4.webp</div>
+          <div class="gallery-page-overlay">
+            <strong>Semi-Frameless Enclosure</strong>
+            <span>South Jordan, UT</span>
+          </div>
+        </div>
+
+        <div class="gallery-page-item">
+          <div class="gallery-placeholder">images/projects/project-5.webp</div>
+          <div class="gallery-page-overlay">
+            <strong>Office Glass Partition</strong>
+            <span>Murray, UT</span>
+          </div>
+        </div>
+
+        <div class="gallery-page-item">
+          <div class="gallery-placeholder">images/projects/project-6.webp</div>
+          <div class="gallery-page-overlay">
+            <strong>Window Replacement</strong>
+            <span>West Valley City, UT</span>
+          </div>
+        </div>
+
+        <div class="gallery-page-item">
+          <div class="gallery-placeholder">images/projects/project-7.webp</div>
+          <div class="gallery-page-overlay">
+            <strong>Neo-Angle Shower</strong>
+            <span>Midvale, UT</span>
+          </div>
+        </div>
+
+        <div class="gallery-page-item">
+          <div class="gallery-placeholder">images/projects/project-8.webp</div>
+          <div class="gallery-page-overlay">
+            <strong>Production Home Mirrors</strong>
+            <span>Herriman, UT</span>
+          </div>
+        </div>
+
+        <div class="gallery-page-item">
+          <div class="gallery-placeholder">images/projects/project-9.webp</div>
+          <div class="gallery-page-overlay">
+            <strong>Retail Entrance Glazing</strong>
+            <span>Salt Lake City, UT</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="text-align: center; margin-top: 48px;">
+        <p style="color: var(--text-muted); margin-bottom: 20px;">Want to see your project here? We'd love to work together.</p>
+        <a href="../index.html#estimate" class="btn btn-primary btn-lg">Get a Free Estimate</a>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-bottom" style="padding: 24px 0; border: none;">
+        <a href="../index.html" class="logo">
+          <div class="logo-mark">SG</div>
+          <span class="logo-text" style="color:rgba(255,255,255,.9);">Seidon <span>Glass</span></span>
+        </a>
+        <span style="color:rgba(255,255,255,.35);">&copy; <script>document.write(new Date().getFullYear())</script> Seidon Glass &bull; <a href="tel:8015550000" style="color:var(--gold)">(801) 555-0000</a></span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="sticky-cta">
+    <a href="tel:8015550000" class="cta-call">Call Now</a>
+    <a href="../index.html#estimate" class="cta-quote">Free Estimate</a>
+  </div>
+
+  <script src="../js/main.js" defer></script>
+</body>
+</html>
