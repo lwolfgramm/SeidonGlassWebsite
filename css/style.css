@@ -151,28 +151,18 @@ p  { max-width: 65ch; }
 .logo {
   display: flex;
   align-items: center;
-  gap: 10px;
   flex-shrink: 0;
+  text-decoration: none;
 }
-.logo-mark {
-  width: 36px; height: 36px;
-  background: linear-gradient(135deg, var(--sky) 0%, var(--gold) 100%);
-  border-radius: var(--radius-sm);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-heading);
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--white);
+
+.logo-image {
+  height: 48px;
+  width: auto;
+  max-width: 220px;
+  display: block;
 }
-.logo-text {
-  font-family: var(--font-heading);
-  font-size: 1.15rem;
-  color: var(--white);
-  font-weight: 700;
-}
-.logo-text span { color: var(--gold); }
+
+
 
 .nav-links {
   display: flex;
