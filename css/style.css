@@ -5,10 +5,10 @@
 
 /* --- DESIGN TOKENS --- */
 :root {
-  --navy:       #0f1f35;
+  /* --navy:       #0f1f35;
   --navy-dark:  #0a1525;
   --steel:      #1d3a5f;
-  --sky:        #2a7dc9;
+  --sky:        #1B75BC;
   --sky-light:  #e8f2fc;
   --gold:       #c8a855;
   --gold-light: #f5eed9;
@@ -16,12 +16,32 @@
   --off-white:  #f7f8fa;
   --gray-100:   #eef0f3;
   --gray-200:   #d8dce2;
-  --gray-400:   #8c94a0;
+  --gray-400:   #E0E0E0;
   --gray-600:   #4a5568;
   --gray-800:   #1a202c;
   --text:       #1a202c;
-  --text-muted: #5a6478;
+  --text-muted: #5a6478; */
+  
+  /* === SEIDON GLASS BRAND PALETTE === */
+  --navy:       #31383D;   /* was #0f1f35 — your charcoal */
+  --navy-dark:  #22282C;   /* was #0a1525 — darker charcoal */
+  --steel:      #1d3a5f;   /* was #1d3a5f — keep for deep bg use */
+  --sky:        #1B75BC;   /* was #2a7dc9 — your primary blue */
+  --sky-light:  #e8f2f9;   /* was #e8f2fc — pale blue tint */
+  --gold:       #4693BD;   /* was #c8a855 — replaced with secondary blue */
+  --gold-light: #daeaf5;   /* was #f5eed9 — pale secondary blue tint */
+  --white:      #ffffff;
+  --off-white:  #f7f8fa;
+  --gray-100:   #f0f1f2;   /* was #eef0f3 — near same */
+  --gray-200:   #E0E0E0;   /* was #d8dce2 — your brand light gray */
+  --gray-400:   #a0a8b0;   /* was #E0E0E0 — mid gray for borders */
+  --gray-600:   #5a6270;   /* was #4a5568 — muted text */
+  --gray-800:   #31383D;   /* was #1a202c — your charcoal */
+  --text:       #31383D;   /* was #1a202c — your charcoal */
+  --text-muted: #6b7280;   /* was #5a6478 — slightly lighter */
 
+  --font-heading: 'Montserrat', sans-serif;   /* was Playfair Display */
+  --font-body:    'Inter', system-ui, sans-serif;
   /* Fonts */
 
   --font-heading: "Montserrat", "Avenir Next", "Segoe UI", Arial, sans-serif;
