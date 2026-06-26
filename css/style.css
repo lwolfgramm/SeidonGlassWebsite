@@ -553,33 +553,33 @@ p  { max-width: 65ch; }
 
 .service-card.liquid-glass .glass-sweep {
   position: absolute;
-  inset: -40%;
+  inset: -30%;
   z-index: 3;
   pointer-events: none;
   background: linear-gradient(
     115deg,
     transparent 35%,
-    rgba(255,255,255,.15) 43%,
+    rgba(255,255,255,.10) 43%,
     rgba(255,255,255,.55) 50%,
-    rgba(255,255,255,.14) 57%,
-    transparent 66%
+    rgba(140,210,255,.18) 54%,
+    transparent 64%
   );
-  transform: translateX(-70%) rotate(8deg);
+  transform: translate3d(-75%, 0, 0) rotate(8deg);
   opacity: 0;
-  transition: opacity .25s ease;
+  will-change: transform, opacity;
 }
 
 .service-card.liquid-glass:hover .glass-sweep {
   opacity: 1;
-  animation: glassSweep 1.15s ease forwards;
+  animation: glassSweep .65s ease-out forwards;
 }
 
 @keyframes glassSweep {
   from {
-    transform: translateX(-70%) rotate(8deg);
+    transform: translate3d(-75%, 0, 0) rotate(8deg);
   }
   to {
-    transform: translateX(70%) rotate(8deg);
+    transform: translate3d(75%, 0, 0) rotate(8deg);
   }
 }
 
@@ -1493,8 +1493,7 @@ footer {
     transform: none;
   }
   .service-card.liquid-glass .glass-sweep {
-    opacity: .45;
-    animation: glassSweep 4.5s ease-in-out infinite;
+    display: none;
   }
  .services-section {
     background:
