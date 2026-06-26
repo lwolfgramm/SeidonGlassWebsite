@@ -5,24 +5,9 @@
 
 /* --- DESIGN TOKENS --- */
 :root {
-  /* --navy:       #0f1f35;
-  --navy-dark:  #0a1525;
-  --steel:      #1d3a5f;
-  --sky:        #1B75BC;
-  --sky-light:  #e8f2fc;
-  --gold:       #c8a855;
-  --gold-light: #f5eed9;
-  --white:      #ffffff;
-  --off-white:  #f7f8fa;
-  --gray-100:   #eef0f3;
-  --gray-200:   #d8dce2;
-  --gray-400:   #E0E0E0;
-  --gray-600:   #4a5568;
-  --gray-800:   #1a202c;
-  --text:       #1a202c;
-  --text-muted: #5a6478; */
-  
   /* === SEIDON GLASS BRAND PALETTE === */
+  --accent:     #C8A35D;
+--accent-light: #E8D7A6;
   --navy:       #31383D;   /* was #0f1f35 — your charcoal */
   --navy-dark:  #22282C;   /* was #0a1525 — darker charcoal */
   --steel:      #1d3a5f;   /* was #1d3a5f — keep for deep bg use */
@@ -40,7 +25,7 @@
   --text:       #31383D;   /* was #1a202c — your charcoal */
   --text-muted: #6b7280;   /* was #5a6478 — slightly lighter */
 
-  --font-heading: 'Montserrat', sans-serif;   /* was Playfair Display */
+  --font-heading: 'Montserrat', sans-serif; 
   --font-body:    'Inter', system-ui, sans-serif;
   /* Fonts */
 
@@ -153,13 +138,13 @@ p  { max-width: 65ch; }
   border-color: var(--white);
 }
 .btn-gold {
-  background: var(--gold);
+  background: var(--accent);
   color: var(--navy-dark);
-  border-color: var(--gold);
+  border-color: var(--accent);
 }
 .btn-gold:hover {
-  background: #b8943a;
-  border-color: #b8943a;
+  background: var(--accent-light);
+  border-color: var(--accent);
   transform: translateY(-1px);
   box-shadow: var(--shadow-md);
 }
@@ -223,7 +208,7 @@ p  { max-width: 65ch; }
   flex-shrink: 0;
 }
 .nav-phone {
-  color: var(--gold);
+  color: var(--accent);
   font-weight: 600;
   font-size: .9rem;
   display: flex;
@@ -344,7 +329,7 @@ p  { max-width: 65ch; }
 }
 .hero-badge-dot {
   width: 6px; height: 6px;
-  background: var(--sky);
+  background: var(--accent);
   border-radius: 50%;
   animation: pulse 2s ease-in-out infinite;
 }
@@ -357,7 +342,7 @@ p  { max-width: 65ch; }
 }
 .hero-headline em {
   font-style: normal;
-  background: linear-gradient(90deg, var(--sky) 0%, var(--gold) 100%);
+  background: linear-gradient(90deg, var(--sky) 0%, var(--accent) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -391,7 +376,7 @@ p  { max-width: 65ch; }
   color: rgba(255,255,255,.65);
   font-size: .85rem;
 }
-.trust-item svg { width: 16px; height: 16px; color: var(--gold); flex-shrink: 0; }
+.trust-item svg { width: 16px; height: 16px; color: var(--accent); flex-shrink: 0; }
 .trust-divider { width: 1px; height: 20px; background: rgba(255,255,255,.2); }
 
 /* --- SERVICES GRID --- */
@@ -415,7 +400,7 @@ p  { max-width: 65ch; }
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 3px;
-  background: linear-gradient(90deg, var(--sky), var(--gold));
+  background: linear-gradient(90deg, var(--sky), var(--accent-light));
   transform: scaleX(0);
   transform-origin: left;
   transition: transform .3s ease;
@@ -466,7 +451,7 @@ p  { max-width: 65ch; }
 .stat-number {
   font-family: var(--font-heading);
   font-size: 2.6rem;
-  color: var(--gold);
+  color: var(--accent);
   line-height: 1;
   margin-bottom: 6px;
 }
@@ -600,7 +585,7 @@ p  { max-width: 65ch; }
   gap: 3px;
   margin-bottom: 14px;
 }
-.stars svg { width: 16px; height: 16px; color: var(--gold); fill: var(--gold); }
+.stars svg { width: 16px; height: 16px; color: var(--accent); fill: var(--accent); }
 .stat-divider {
   width: 1px;
   height: 48px;
@@ -796,7 +781,7 @@ footer {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  color: var(--gold);
+  color: var(--accent);
   font-weight: 600;
   font-size: .95rem;
   margin-top: 14px;
@@ -865,7 +850,7 @@ footer {
   padding: 130px 0 70px;
   text-align: center;
 }
-.page-hero .eyebrow { color: var(--gold); }
+.page-hero .eyebrow { color: var(--accent); }
 .page-hero h1 { color: var(--white); margin-bottom: 16px; }
 .page-hero p  { color: rgba(255,255,255,.7); max-width: 580px; margin: 0 auto; }
 
