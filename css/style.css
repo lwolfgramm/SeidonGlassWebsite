@@ -285,6 +285,8 @@ p  { max-width: 65ch; }
   background-image: url('../images/hero.webp');
   background-size: cover;
   background-position: 40% 35%;
+  transform: translateY(var(--hero-parallax, 0px)) scale(1.06);
+  will-change: transform;
 }
 /* Fallback gradient if no hero image is uploaded yet */
 .hero-bg-img.no-image {
@@ -292,6 +294,7 @@ p  { max-width: 65ch; }
 }
 /* Decorative glass-reflection lines */
 .hero-bg::after {
+  animation: glassLines 18s linear infinite;
   content: '';
   position: absolute;
   inset: 0;
@@ -310,9 +313,11 @@ p  { max-width: 65ch; }
   z-index: 2;
   padding: 120px 0 80px;
   width: 100%;
+  animation: heroFadeUp .9s ease both;
 }
 
 .hero-badge {
+  animation: heroFadeUp .7s ease both;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -334,8 +339,28 @@ p  { max-width: 65ch; }
   animation: pulse 2s ease-in-out infinite;
 }
 @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:.4; } }
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes glassLines {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 220px 220px;
+  }
+}
 
 .hero-headline {
+  animation: heroFadeUp .9s ease .12s both;
   color: var(--white);
   margin-bottom: 20px;
   max-width: 720px;
@@ -349,6 +374,7 @@ p  { max-width: 65ch; }
 }
 
 .hero-sub {
+  animation: heroFadeUp .9s ease .22s both;
   color: rgba(255,255,255,.72);
   font-size: 1.1rem;
   max-width: 560px;
@@ -357,6 +383,7 @@ p  { max-width: 65ch; }
 }
 
 .hero-actions {
+  animation: heroFadeUp .9s ease .32s both;
   display: flex;
   flex-wrap: wrap;
   gap: 14px;
@@ -923,6 +950,18 @@ footer {
 }
 
 /* === RESPONSIVE === */
+@media (prefers-reduced-motion: reduce) {
+  .hero-bg-img,
+  .hero-content,
+  .hero-badge,
+  .hero-headline,
+  .hero-sub,
+  .hero-actions,
+  .hero-bg::after {
+    animation: none !important;
+    transform: none !important;
+  }
+}
 @media (max-width: 900px) {
   :root { --section-pad: 60px; }
   .nav-links { display: none; }

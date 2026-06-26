@@ -64,6 +64,13 @@ if (estimateForm) {
     }
   });
 }
+/* --- parallax on hero image--- */
+<script>
+  window.addEventListener("scroll", () => {
+    const y = window.scrollY * 0.18;
+    document.documentElement.style.setProperty("--hero-parallax", `${y}px`);
+  });
+</script>
 
 /* --- SMOOTH ANCHOR SCROLL (accounts for fixed header height) --- */
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
