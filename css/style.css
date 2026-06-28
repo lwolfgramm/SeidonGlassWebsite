@@ -432,73 +432,39 @@ p  { max-width: 65ch; }
 .water-caustics {
   position: absolute;
   inset: -18%;
-  opacity: .48;
-  filter: blur(.25px);
+  opacity: .22;
+  filter: none;
   background:
-    linear-gradient(118deg, transparent 0 43%, rgba(255,255,255,.45) 44%, transparent 47%),
-    linear-gradient(62deg, transparent 0 55%, rgba(27,117,188,.10) 56%, rgba(255,255,255,.35) 57%, transparent 60%),
-    linear-gradient(145deg, transparent 0 62%, rgba(255,255,255,.28) 63%, transparent 66%),
-    linear-gradient(28deg, transparent 0 48%, rgba(70,147,189,.10) 49%, rgba(255,255,255,.30) 50%, transparent 53%);
-  background-size: 760px 760px, 620px 620px, 900px 900px, 680px 680px;
-  background-position: 0 0, 120px 80px, 240px 160px, -100px 120px;
+    linear-gradient(118deg, transparent 0 43%, rgba(255,255,255,.38) 44%, transparent 47%),
+    linear-gradient(62deg, transparent 0 55%, rgba(27,117,188,.08) 56%, rgba(255,255,255,.28) 57%, transparent 60%),
+    linear-gradient(145deg, transparent 0 62%, rgba(255,255,255,.22) 63%, transparent 66%);
+  background-size: 760px 760px, 620px 620px, 900px 900px;
   mix-blend-mode: screen;
-  animation: glassCausticDrift 14s ease-in-out infinite;
+  transform: translate3d(0,0,0);
 }
 
 /* Big architectural glass lines */
 .water-glass-lines {
   position: absolute;
   inset: -15%;
-  opacity: .34;
+  opacity: .20;
   background:
-    linear-gradient(118deg, transparent 46%, rgba(27,117,188,.16) 47%, rgba(255,255,255,.55) 48%, transparent 50%),
-    linear-gradient(32deg, transparent 58%, rgba(255,255,255,.38) 59%, rgba(27,117,188,.12) 60%, transparent 62%);
+    linear-gradient(118deg, transparent 46%, rgba(27,117,188,.12) 47%, rgba(255,255,255,.42) 48%, transparent 50%),
+    linear-gradient(32deg, transparent 58%, rgba(255,255,255,.28) 59%, rgba(27,117,188,.08) 60%, transparent 62%);
   background-size: 900px 900px, 760px 760px;
-  animation: glassLineDrift 18s linear infinite;
+  transform: translate3d(0,0,0);
 }
 
 /* Subtle moving light wash */
 .water-shimmer {
   position: absolute;
   inset: -25%;
-  opacity: .34;
+  opacity: .16;
   background:
-    linear-gradient(110deg, transparent 35%, rgba(255,255,255,.45) 44%, transparent 52%),
-    linear-gradient(75deg, transparent 48%, rgba(27,117,188,.10) 50%, rgba(255,255,255,.30) 52%, transparent 57%),
-    linear-gradient(145deg, transparent 62%, rgba(200,163,93,.10) 64%, rgba(255,255,255,.24) 66%, transparent 70%);
-  background-size: 900px 900px, 760px 760px, 980px 980px;
-  animation: shimmerFloat 12s ease-in-out infinite;
-}
-
-@keyframes glassCausticDrift {
-  0%, 100% {
-    transform: translate3d(0,0,0) skewX(0deg);
-    background-position: 0 0, 120px 80px, 240px 160px, -100px 120px;
-  }
-  50% {
-    transform: translate3d(46px,-32px,0) skewX(-2deg);
-    background-position: 180px 130px, -60px 240px, 420px 40px, 80px 280px;
-  }
-}
-
-@keyframes glassLineDrift {
-  from {
-    transform: translate3d(0,0,0) rotate(0deg);
-  }
-  to {
-    transform: translate3d(-260px,-190px,0) rotate(.6deg);
-  }
-}
-
-@keyframes shimmerFloat {
-  0%, 100% {
-    transform: translate3d(0,0,0) rotate(0deg);
-    background-position: 0 0, 120px 80px, -80px 160px;
-  }
-  50% {
-    transform: translate3d(-55px,38px,0) rotate(1.8deg);
-    background-position: 220px 150px, -70px 260px, 160px 20px;
-  }
+    linear-gradient(110deg, transparent 35%, rgba(255,255,255,.34) 44%, transparent 52%),
+    linear-gradient(75deg, transparent 48%, rgba(27,117,188,.08) 50%, rgba(255,255,255,.22) 52%, transparent 57%);
+  background-size: 900px 900px, 760px 760px;
+  transform: translate3d(0,0,0);
 }
 
 /* Liquid Glass Effects for Services Grid */
@@ -507,12 +473,11 @@ p  { max-width: 65ch; }
   overflow: hidden;
   background: rgba(255, 255, 255, 0.58);
   border: 1px solid rgba(255, 255, 255, 0.55);
-  backdrop-filter: blur(18px) saturate(150%);
-  -webkit-backdrop-filter: blur(18px) saturate(150%);
-  box-shadow:
-    0 28px 80px rgba(18, 35, 56, 0.12),
-    0 0 80px rgba(27,117,188,.10),
-    inset 0 1px 0 rgba(255,255,255,.92);
+backdrop-filter: blur(10px) saturate(125%);
+-webkit-backdrop-filter: blur(10px) saturate(125%);
+box-shadow:
+  0 18px 50px rgba(18,35,56,.10),
+  inset 0 1px 0 rgba(255,255,255,.88);
 }
 
 .liquid-glass::before {
@@ -599,9 +564,9 @@ p  { max-width: 65ch; }
   transform: translateY(-8px);
   border-color: rgba(27,117,188,.45);
   box-shadow:
-  0 38px 110px rgba(18,35,56,.18),
-  0 0 120px rgba(27,117,188,.18),
-  inset 0 1px 0 rgba(255,255,255,.96);
+    0 24px 60px rgba(18,35,56,.14),
+    0 0 40px rgba(27,117,188,.08),
+    inset 0 1px 0 rgba(255,255,255,.94);
 }
 /* Dark Glass Version for Builder Card */
 .service-card.dark-glass {
@@ -1384,6 +1349,14 @@ footer {
   .service-detail-grid { grid-template-columns: 1fr; }
   .sticky-cta { display: flex; }
   body { padding-bottom: 70px; }
+
+  .service-card.liquid-glass .glass-sweep {
+    display: none;
+  }
+
+  .service-card.liquid-glass:hover {
+    transform: none;
+  }
 }
 @media (max-width: 600px) {
   .container {
@@ -1481,6 +1454,11 @@ footer {
   .liquid-glass {
     backdrop-filter: blur(12px) saturate(130%);
     -webkit-backdrop-filter: blur(12px) saturate(130%);
+    transition:
+  transform .35s ease,
+  box-shadow .35s ease,
+  border-color .35s ease,
+  outline-color .35s ease;
   }
 
   .water-caustics,
@@ -1490,7 +1468,9 @@ footer {
   }
 
   .service-card.liquid-glass:hover {
-    transform: none;
+  transform: none;
+  outline: 1px solid rgba(255,255,255,.28);
+  outline-offset: -1px;
   }
   .service-card.liquid-glass .glass-sweep {
     display: none;
