@@ -10,28 +10,24 @@ console.log("GSAP connected");
 /* --- PINNED SERVICES SHOWCASE --- */
 const serviceData = [
   {
-    number: "01",
     title: "Showers & Enclosures",
     text: "Frameless, semi-frameless, and framed enclosures built to fit your space cleanly.",
     link: "services/shower-doors.html",
     linkText: "View options →"
   },
   {
-    number: "02",
     title: "Storefront Systems",
     text: "Aluminum storefronts, entrances, door systems, and retail glass solutions.",
     link: "#estimate",
     linkText: "See storefronts →"
   },
   {
-    number: "03",
     title: "Commercial Glazing",
     text: "Office partitions, glass walls, conference rooms, and interior glazing systems.",
     link: "#estimate",
     linkText: "Explore commercial →"
   },
   {
-    number: "04",
     title: "Window & Glass Replacement",
     text: "Broken glass, failed IGUs, mirrors, and residential or light commercial replacement.",
     link: "#estimate",
@@ -42,26 +38,23 @@ const serviceData = [
 const section = document.querySelector(".services-showcase");
 
 if (section && typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-
   const mediaItems = gsap.utils.toArray(".showcase-media");
   const buttons = gsap.utils.toArray(".showcase-progress button");
   const card = document.querySelector(".showcase-card");
-  const number = document.querySelector(".showcase-number");
   const title = document.querySelector(".showcase-title");
   const text = document.querySelector(".showcase-text");
   const link = document.querySelector(".showcase-link");
+  const stage = document.querySelector(".service-stage");
+  const isMobile = window.matchMedia("(max-width: 700px)").matches;
 
   let current = 0;
 
   function setService(index) {
     index = Math.max(0, Math.min(index, serviceData.length - 1));
-    if (index === current) return;
-
-    current = index;
 
     mediaItems.forEach((item, i) => {
       item.classList.toggle("is-active", i === index);
+
       if (item.tagName === "VIDEO") {
         if (i === index) item.play().catch(() => {});
         else item.pause();
@@ -72,58 +65,99 @@ if (section && typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefine
       btn.classList.toggle("is-active", i === index);
     });
 
-    gsap.to(card, {
-      opacity: 0,
-      y: -22,
-      duration: 0.22,
-      ease: "power2.in",
-      onComplete: () => {
-      if (number) {
-        number.textContent = serviceData[index].number;
-      }
-        title.textContent = serviceData[index].title;
-        text.textContent = serviceData[index].text;
-        link.href = serviceData[index].link;
-        link.textContent = serviceData[index].linkText;
+if (index === current) return;
+current = index;
 
-        gsap.fromTo(card,
-          { opacity: 0, y: 30 },
-          { opacity: 1, y: 0, duration: 0.42, ease: "power3.out" }
-        );
-      }
-    });
+if (isMobile) {
+  title.textContent = serviceData[index].title;
+  text.textContent = serviceData[index].text;
+  link.href = serviceData[index].link;
+  link.textContent = serviceData[index].linkText;
+  return;
+}
+
+gsap.to(card, {
+  opacity: 0,
+  y: -22,
+  duration: 0.18,
+  ease: "power2.in",
+  onComplete: () => {
+    title.textContent = serviceData[index].title;
+    text.textContent = serviceData[index].text;
+    link.href = serviceData[index].link;
+    link.textContent = serviceData[index].linkText;
+
+    gsap.fromTo(
+      card,
+      { opacity: 0, y: 22 },
+      { opacity: 1, y: 0, duration: 0.32, ease: "power3.out" }
+    );
+  }
+});
   }
 
   setService(0);
 
-  const trigger = ScrollTrigger.create({
-    trigger: section,
-    start: "top top",
-    end: "+=2400",
-    scrub: true,
-    pin: true,
-    pinSpacing: true, 
-    onUpdate: (self) => {
-      const index = Math.min(
-        serviceData.length - 1,
-        Math.floor(self.progress * serviceData.length)
-      );
-      setService(index);
-    }
-  });
+  if (!isMobile) {
+    const trigger = ScrollTrigger.create({
+      trigger: section,
+      start: "top top",
+      end: () => "+=" + window.innerHeight * 3,
+      scrub: 0.8,
+      pin: true,
+      pinSpacing: true,
+      anticipatePin: 1,
+      onUpdate: (self) => {
+        const index = Math.min(
+          serviceData.length - 1,
+          Math.floor(self.progress * serviceData.length)
+        );
 
-  buttons.forEach((btn, index) => {
-    btn.addEventListener("click", () => {
-      const targetScroll =
-        trigger.start + (trigger.end - trigger.start) * (index / serviceData.length);
+        setService(index);
+      }
+    });
 
-      gsap.to(window, {
-        scrollTo: targetScroll,
-        duration: 0.7,
-        ease: "power3.out"
+    buttons.forEach((btn, index) => {
+      btn.addEventListener("click", () => {
+        const targetScroll =
+          trigger.start + (trigger.end - trigger.start) * (index / serviceData.length);
+
+        gsap.to(window, {
+          scrollTo: targetScroll,
+          duration: 0.7,
+          ease: "power3.out"
+        });
       });
     });
-  });
+  }
+
+  if (isMobile && stage) {
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    stage.addEventListener("touchstart", (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    stage.addEventListener("touchend", (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      const swipeDistance = touchEndX - touchStartX;
+
+      if (Math.abs(swipeDistance) < 50) return;
+
+      if (swipeDistance < 0) {
+        setService(current + 1);
+      } else {
+        setService(current - 1);
+      }
+    }, { passive: true });
+
+    buttons.forEach((btn, index) => {
+      btn.addEventListener("click", () => {
+        setService(index);
+      });
+    });
+  }
 }
 /* --- STICKY HEADER SHADOW ON SCROLL --- */
 const header = document.getElementById('header');
