@@ -39,61 +39,74 @@ const section = document.querySelector(".services-showcase");
 
 if (section && typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
   const mediaItems = gsap.utils.toArray(".showcase-media");
-  const buttons = gsap.utils.toArray(".showcase-progress button");
-  const card = document.querySelector(".showcase-card");
-  const title = document.querySelector(".showcase-title");
-  const text = document.querySelector(".showcase-text");
-  const link = document.querySelector(".showcase-link");
-  const stage = document.querySelector(".service-stage");
-  const isMobile = window.matchMedia("(max-width: 700px)").matches;
+  const buttons    = gsap.utils.toArray(".showcase-progress button");
+  const card       = document.querySelector(".showcase-card");
+  const title      = document.querySelector(".showcase-title");
+  const text       = document.querySelector(".showcase-text");
+  const link       = document.querySelector(".showcase-link");
+  const stage      = document.querySelector(".service-stage");
+  const isMobile   = window.matchMedia("(max-width: 700px)").matches;
 
   let current = 0;
 
   function setService(index) {
     index = Math.max(0, Math.min(index, serviceData.length - 1));
+    if (index === current) return;
 
+    /* Tag outgoing for exit animation */
+    const outgoing = mediaItems[current];
+    if (outgoing) {
+      outgoing.classList.add("is-leaving");
+      setTimeout(() => {
+        outgoing.classList.remove("is-leaving");
+        outgoing.classList.remove("is-active");
+      }, 1200);
+    }
+
+    current = index;
+
+    /* Swap media */
     mediaItems.forEach((item, i) => {
-      item.classList.toggle("is-active", i === index);
-
-      if (item.tagName === "VIDEO") {
-        if (i === index) item.play().catch(() => {});
-        else item.pause();
+      if (i === index) {
+        item.classList.add("is-active");
+        if (item.tagName === "VIDEO") item.play().catch(() => {});
+      } else if (!item.classList.contains("is-leaving")) {
+        item.classList.remove("is-active");
+        if (item.tagName === "VIDEO") item.pause();
       }
     });
 
+    /* Swap progress dots */
     buttons.forEach((btn, i) => {
       btn.classList.toggle("is-active", i === index);
     });
 
-if (index === current) return;
-current = index;
+    /* Card animation */
+    if (isMobile) {
+      title.textContent = serviceData[index].title;
+      text.textContent  = serviceData[index].text;
+      link.href         = serviceData[index].link;
+      link.textContent  = serviceData[index].linkText;
+      return;
+    }
 
-if (isMobile) {
-  title.textContent = serviceData[index].title;
-  text.textContent = serviceData[index].text;
-  link.href = serviceData[index].link;
-  link.textContent = serviceData[index].linkText;
-  return;
-}
-
-gsap.to(card, {
-  opacity: 0,
-  y: -22,
-  duration: 0.18,
-  ease: "power2.in",
-  onComplete: () => {
-    title.textContent = serviceData[index].title;
-    text.textContent = serviceData[index].text;
-    link.href = serviceData[index].link;
-    link.textContent = serviceData[index].linkText;
-
-    gsap.fromTo(
-      card,
-      { opacity: 0, y: 22 },
-      { opacity: 1, y: 0, duration: 0.32, ease: "power3.out" }
-    );
-  }
-});
+    gsap.to(card, {
+      opacity: 0,
+      y: -28,
+      duration: 0.22,
+      ease: "power2.in",
+      onComplete: () => {
+        title.textContent = serviceData[index].title;
+        text.textContent  = serviceData[index].text;
+        link.href         = serviceData[index].link;
+        link.textContent  = serviceData[index].linkText;
+        gsap.fromTo(card,
+          { opacity: 0, y: 36, filter: "blur(4px)" },
+          { opacity: 1, y: 0,  filter: "blur(0px)",
+            duration: 0.45, ease: "power3.out" }
+        );
+      }
+    });
   }
 
   setService(0);
@@ -102,7 +115,7 @@ gsap.to(card, {
     const trigger = ScrollTrigger.create({
       trigger: section,
       start: "top top",
-      end: () => "+=" + window.innerHeight * 3,
+      end: () => "+=" + window.innerHeight * serviceData.length,
       scrub: 0.8,
       pin: true,
       pinSpacing: true,
@@ -112,20 +125,17 @@ gsap.to(card, {
           serviceData.length - 1,
           Math.floor(self.progress * serviceData.length)
         );
-
         setService(index);
       }
     });
 
-    buttons.forEach((btn, index) => {
+    buttons.forEach((btn, i) => {
       btn.addEventListener("click", () => {
-        const targetScroll =
-          trigger.start + (trigger.end - trigger.start) * (index / serviceData.length);
-
-        gsap.to(window, {
-          scrollTo: targetScroll,
-          duration: 0.7,
-          ease: "power3.out"
+        const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+        const scrollPerService = window.innerHeight;
+        window.scrollTo({
+          top: sectionTop + scrollPerService * i,
+          behavior: "smooth"
         });
       });
     });
@@ -133,32 +143,23 @@ gsap.to(card, {
 
   if (isMobile && stage) {
     let touchStartX = 0;
-    let touchEndX = 0;
 
     stage.addEventListener("touchstart", (e) => {
       touchStartX = e.changedTouches[0].screenX;
     }, { passive: true });
 
     stage.addEventListener("touchend", (e) => {
-      touchEndX = e.changedTouches[0].screenX;
-      const swipeDistance = touchEndX - touchStartX;
-
+      const swipeDistance = e.changedTouches[0].screenX - touchStartX;
       if (Math.abs(swipeDistance) < 50) return;
-
-      if (swipeDistance < 0) {
-        setService(current + 1);
-      } else {
-        setService(current - 1);
-      }
+      setService(current + (swipeDistance < 0 ? 1 : -1));
     }, { passive: true });
 
-    buttons.forEach((btn, index) => {
-      btn.addEventListener("click", () => {
-        setService(index);
-      });
+    buttons.forEach((btn, i) => {
+      btn.addEventListener("click", () => setService(i));
     });
   }
 }
+
 /* --- STICKY HEADER SHADOW ON SCROLL --- */
 const header = document.getElementById('header');
 if (header) {
@@ -220,11 +221,6 @@ if (estimateForm) {
     }
   });
 }
-/* --- PARALLAX ON HERO IMAGE --- */
-window.addEventListener("scroll", () => {
-  const y = window.scrollY * 0.18;
-  document.documentElement.style.setProperty("--hero-parallax", `${y}px`);
-}, { passive: true });
 
 /* --- SMOOTH ANCHOR SCROLL (accounts for fixed header height) --- */
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
