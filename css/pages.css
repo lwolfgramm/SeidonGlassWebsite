@@ -197,11 +197,10 @@
 .portfolio-hero p { color:rgba(255,255,255,.68); font-size:1.08rem; }
 .portfolio-shell { padding:42px 0 100px; background:#f4f6f7; }
 .filter-rail {
-  position: sticky;
-  top: 118px;
-
-  z-index: 50;       /* add */
-  isolation: isolate; /* add */
+  position: relative;
+  top: auto;
+  z-index: 50;
+  isolation: isolate;
 }
 .filter-rail::-webkit-scrollbar { display:none; }
 .projects-grid,
@@ -238,11 +237,6 @@
   .principles,.company-stats,.expectations { grid-template-columns:1fr 1fr; }
   .contact-intro { position:static; }
   .project-card,.project-card--wide { grid-column:span 6; }
-  .filter-rail {
-    position: relative;
-    top: auto;
-    z-index: 50;
-  }
 }
 @media(max-width:700px){
   .about-hero {
