@@ -17,42 +17,109 @@
 </head>
 <body>
 
-  <header id="header">
-    <div class="container">
-      <nav class="nav-inner">
+<header id="header">
+  <div class="container">
 
-        <!-- Logo -->
-        <a href="../index.html" class="logo" aria-label="Seidon Glass Home">
-          <img
-            src="../images/logo.png"
-            alt="Seidon Glass"
-            class="logo-image">
+    <!-- Main navigation row -->
+    <nav class="nav-inner" aria-label="Primary navigation">
+
+      <!-- Logo -->
+      <a href="../index.html" class="logo" aria-label="Seidon Glass home">
+        <img
+          src="../images/logo.png"
+          alt="Seidon Glass"
+          class="logo-image"
+        >
+      </a>
+
+      <!-- Desktop navigation -->
+      <ul class="nav-links" role="list">
+        <li>
+          <a href="../services/index.html">Services</a>
+        </li>
+
+        <li>
+          <a href="../projects/index.html">Projects</a>
+        </li>
+
+        <li>
+          <a href="../about.html">About</a>
+        </li>
+
+        <li>
+          <a href="../contact.html">Contact</a>
+        </li>
+      </ul>
+
+      <!-- Desktop calls to action -->
+      <div class="nav-cta">
+        <a class="nav-phone" href="tel:3852458655">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path
+              d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.69 12a19.79 19.79 0 01-3.07-8.67A2 2 0 013.6 1.27h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L7.91 8.81a16 16 0 006.29 6.29l.91-.95a2 2 0 012.11-.45c.907.338 1.85.573 2.81.7a2 2 0 011.72 2.02z"
+            ></path>
+          </svg>
+
+          (385) 245-8655
         </a>
-        <ul class="nav-links" role="list">
-          <li><a href="index.html">Services</a></li>
-          <li><a href="../projects/index.html">Projects</a></li>
-          <li><a href="../about.html">About</a></li>
-          <li><a href="../contact.html">Contact</a></li>
-        </ul>
-        <div class="nav-cta">
-          <a class="nav-phone" href="tel:3852458655">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.69 12a19.79 19.79 0 01-3.07-8.67A2 2 0 013.6 1.27h3a2 2 0 012 1.72c.127.96.362 1.903.7 2.81a2 2 0 01-.45 2.11L7.91 8.81a16 16 0 006.29 6.29l.91-.95a2 2 0 012.11-.45c.907.338 1.85.573 2.81.7a2 2 0 011.72 2.02z"/></svg>
-            (385) 245-8655
+
+        <a href="../contact.html" class="btn btn-primary">
+          Free Estimate
+        </a>
+      </div>
+
+      <!-- Mobile hamburger -->
+      <button
+        class="hamburger"
+        type="button"
+        aria-label="Open navigation"
+        aria-expanded="false"
+        aria-controls="mobile-navigation"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+    </nav>
+
+    <!-- Mobile navigation drawer -->
+    <nav
+      class="mobile-menu"
+      id="mobile-navigation"
+      aria-label="Mobile navigation"
+      aria-hidden="true"
+    >
+      <div class="mobile-menu-inner">
+        <div class="mobile-menu-links">
+
+          <a href="../services/index.html">Services</a>
+          <a href="../projects/index.html">Projects</a>
+          <a href="../about.html">About</a>
+          <a href="../contact.html">Contact</a>
+
+          <a href="tel:3852458655" class="btn btn-gold">
+            (385) 245-8655 — Call Us
           </a>
-          <a href="../index.html#estimate" class="btn btn-primary">Free Estimate</a>
+
+          <a href="../contact.html" class="btn btn-primary">
+            Request Free Estimate
+          </a>
+
         </div>
-        <button class="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
-      </nav>
-      <nav class="mobile-menu" aria-label="Mobile navigation">
-        <a href="index.html">Services</a>
-        <a href="../projects/index.html">Projects</a>
-        <a href="../about.html">About</a>
-        <a href="../contact.html">Contact</a>
-        <a href="tel:3852458655" class="btn btn-gold">(385) 245-8655 — Call Us</a>
-        <a href="../index.html#estimate" class="btn btn-primary">Request Free Estimate</a>
-      </nav>
-    </div>
-  </header>
+      </div>
+    </nav>
+
+  </div>
+</header>
 
   <!-- Page Hero -->
   <section class="page-hero">

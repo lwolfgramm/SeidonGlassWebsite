@@ -1,18 +1,26 @@
 /* =============================================
    SEIDON GLASS — main.js
-   Keep this simple. No frameworks needed.
    ============================================= */
 
   //  --- GSAP ---
-gsap.registerPlugin(ScrollTrigger);
-console.log("GSAP connected");
+const hasGSAP =
+  typeof window.gsap !== "undefined" &&
+  typeof window.ScrollTrigger !== "undefined";
+
+if (hasGSAP) {
+  gsap.registerPlugin(ScrollTrigger);
+
+  if (typeof window.ScrollToPlugin !== "undefined") {
+    gsap.registerPlugin(ScrollToPlugin);
+  }
+}
 
 /* --- PINNED SERVICES SHOWCASE --- */
 const serviceData = [
   {
     title: "Showers & Enclosures",
     text: "Frameless, semi-frameless, and framed enclosures built to fit your space cleanly.",
-    link: "services/shower-doors.html",
+    link: "services/showers-enclosures.html",
     linkText: "View options →"
   },
   {
@@ -37,7 +45,7 @@ const serviceData = [
 
 const section = document.querySelector(".services-showcase");
 
-if (section && typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefined") {
+if (section && hasGSAP) {
   const mediaItems = gsap.utils.toArray(".showcase-media");
   const buttons    = gsap.utils.toArray(".showcase-progress button");
   const card       = document.querySelector(".showcase-card");
@@ -160,6 +168,8 @@ if (section && typeof gsap !== "undefined" && typeof ScrollTrigger !== "undefine
   }
 }
 
+
+
 /* --- STICKY HEADER SHADOW ON SCROLL --- */
 const header = document.getElementById('header');
 if (header) {
@@ -168,20 +178,62 @@ if (header) {
   }, { passive: true });
 }
 
-/* --- MOBILE MENU --- */
-const hamburger = document.querySelector('.hamburger');
-const mobileMenu = document.querySelector('.mobile-menu');
+/* --- ACCESSIBLE LIQUID-GLASS MOBILE MENU --- */
+const hamburger = document.querySelector(".hamburger");
+const mobileMenu = document.querySelector(".mobile-menu");
+
+function setMobileMenu(open) {
+  if (!hamburger || !mobileMenu) return;
+
+  hamburger.classList.toggle("open", open);
+  mobileMenu.classList.toggle("open", open);
+
+  hamburger.setAttribute("aria-expanded", String(open));
+  hamburger.setAttribute(
+    "aria-label",
+    open ? "Close navigation" : "Open navigation"
+  );
+
+  mobileMenu.setAttribute("aria-hidden", String(!open));
+  document.body.classList.toggle("menu-open", open);
+}
+
 if (hamburger && mobileMenu) {
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('open');
-    mobileMenu.classList.toggle('open');
+  setMobileMenu(false);
+  hamburger.addEventListener("click", () => {
+    const isOpen = hamburger.getAttribute("aria-expanded") === "true";
+    setMobileMenu(!isOpen);
   });
-  // Close menu when a link is tapped
-  mobileMenu.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      hamburger.classList.remove('open');
-      mobileMenu.classList.remove('open');
-    });
+
+/*
+ * Close the menu before processing any selected navigation link.
+ * Capture mode also works with icons/spans nested inside links.
+ */
+document.addEventListener(
+  "click",
+  (event) => {
+    if (!(event.target instanceof Element)) return;
+
+
+    const selectedLink = event.target.closest(".mobile-menu a");
+
+    if (selectedLink) {
+      setMobileMenu(false);
+    }
+  },
+  true
+);
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      setMobileMenu(false);
+      hamburger.focus();
+    }
+  });
+
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 900) {
+      setMobileMenu(false);
+    }
   });
 }
 

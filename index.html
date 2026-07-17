@@ -24,7 +24,8 @@
   <!-- Fonts — loads two typefaces only, fast -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="css/style.css">
@@ -120,21 +121,52 @@
         </div>
 
         <!-- Mobile Hamburger -->
-        <button class="hamburger" aria-label="Open menu" aria-expanded="false">
-          <span></span><span></span><span></span>
+        <button
+          class="hamburger"
+          type="button"
+          aria-label="Open navigation"
+          aria-expanded="false"
+          aria-controls="mobile-navigation"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
         </button>
 
       </nav>
 
       <!-- Mobile Dropdown Menu -->
-      <nav class="mobile-menu" aria-label="Mobile navigation">
+      <!-- <nav class="mobile-menu" aria-label="Mobile navigation">
         <a href="services/index.html">Services</a>
         <a href="projects/index.html">Projects</a>
         <a href="about.html">About</a>
         <a href="contact.html">Contact</a>
         <a href="tel:3852458655" class="btn btn-gold">(385) 245-8655 — Call Us</a>
         <a href="#estimate" class="btn btn-primary">Request Free Estimate</a>
-      </nav>
+      </nav> -->
+      <nav
+      class="mobile-menu"
+      id="mobile-navigation"
+      aria-label="Mobile navigation"
+      aria-hidden="true">
+              
+      <div class="mobile-menu-inner">
+        <div class="mobile-menu-links">
+          <a href="services/index.html">Services</a>
+          <a href="projects/index.html">Projects</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+
+          <a href="tel:3852458655" class="btn btn-gold">
+            (385) 245-8655 — Call Us
+          </a>
+
+          <a href="contact.html" class="btn btn-primary">
+            Request Free Estimate
+          </a>
+        </div>
+      </div>
+    </nav>                                
     </div>
   </header>
 
