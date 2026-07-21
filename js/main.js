@@ -253,6 +253,21 @@ if (estimateForm) {
       return;
     }
 
+    // Honeypot check
+const honeypot = estimateForm.querySelector('[name="website"]');
+
+if (honeypot && honeypot.value.trim() !== '') {
+  estimateForm.reset();
+
+  if (formSuccess) {
+    formSuccess.style.display = 'block';
+  }
+
+  return;
+}
+
+}
+
     const turnstileToken = estimateForm.querySelector(
       '[name="cf-turnstile-response"]'
     );
@@ -312,6 +327,7 @@ if (estimateForm) {
     }
   });
 }
+
 /* --- SMOOTH ANCHOR SCROLL (accounts for fixed header height) --- */
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', (e) => {
