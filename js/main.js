@@ -246,26 +246,26 @@ if (estimateForm) {
   estimateForm.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    // Because the form currently uses "novalidate",
-    // manually run the browser's required-field checks.
+    // Run required-field validation because the form uses "novalidate".
     if (!estimateForm.checkValidity()) {
       estimateForm.reportValidity();
       return;
     }
 
-    // Honeypot check
-const honeypot = estimateForm.querySelector('[name="website"]');
+    // Honeypot: silently reject bots that fill the hidden field.
+    const honeypot = estimateForm.querySelector('[name="website"]');
 
-if (honeypot && honeypot.value.trim() !== '') {
-  estimateForm.reset();
+    if (honeypot && honeypot.value.trim() !== '') {
+      estimateForm.reset();
 
-  if (formSuccess) {
-    formSuccess.style.display = 'block';
-  }
+      if (formSuccess) {
+        formSuccess.style.display = 'block';
+      }
 
-  return;
-}
+      return;
+    }
 
+    // Confirm Cloudflare Turnstile completed successfully.
     const turnstileToken = estimateForm.querySelector(
       '[name="cf-turnstile-response"]'
     );
@@ -296,7 +296,6 @@ if (honeypot && honeypot.value.trim() !== '') {
 
       estimateForm.reset();
 
-      // Generate a fresh Turnstile token for another submission.
       if (window.turnstile) {
         window.turnstile.reset();
       }
@@ -315,7 +314,6 @@ if (honeypot && honeypot.value.trim() !== '') {
         'Something went wrong. Please call us directly at (385) 245-8655.'
       );
 
-      // Refresh the challenge after a failed attempt too.
       if (window.turnstile) {
         window.turnstile.reset();
       }
@@ -325,7 +323,6 @@ if (honeypot && honeypot.value.trim() !== '') {
     }
   });
 }
-
 /* --- SMOOTH ANCHOR SCROLL (accounts for fixed header height) --- */
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', (e) => {
