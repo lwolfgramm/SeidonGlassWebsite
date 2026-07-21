@@ -266,8 +266,6 @@ if (honeypot && honeypot.value.trim() !== '') {
   return;
 }
 
-}
-
     const turnstileToken = estimateForm.querySelector(
       '[name="cf-turnstile-response"]'
     );
@@ -326,6 +324,7 @@ if (honeypot && honeypot.value.trim() !== '') {
       btn.disabled = false;
     }
   });
+}
 
 /* --- SMOOTH ANCHOR SCROLL (accounts for fixed header height) --- */
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
