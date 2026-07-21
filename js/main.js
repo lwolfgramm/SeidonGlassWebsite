@@ -240,40 +240,78 @@ document.addEventListener(
 /* --- ESTIMATE FORM SUBMISSION (Formspree) ---
    ----------------------------------------- */
 const estimateForm = document.getElementById('estimate-form');
-const formSuccess  = document.getElementById('form-success');
+const formSuccess = document.getElementById('form-success');
 
 if (estimateForm) {
   estimateForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+
+    // Because the form currently uses "novalidate",
+    // manually run the browser's required-field checks.
+    if (!estimateForm.checkValidity()) {
+      estimateForm.reportValidity();
+      return;
+    }
+
+    const turnstileToken = estimateForm.querySelector(
+      '[name="cf-turnstile-response"]'
+    );
+
+    if (!turnstileToken || !turnstileToken.value) {
+      alert('Please complete the security verification before submitting.');
+      return;
+    }
+
     const btn = estimateForm.querySelector('.form-submit');
-    const origText = btn.textContent;
+    const originalContent = btn.innerHTML;
+
     btn.textContent = 'Sending…';
     btn.disabled = true;
 
     try {
       const response = await fetch('https://formspree.io/f/xvzjgjbg', {
         method: 'POST',
-        headers: { 'Accept': 'application/json' },
+        headers: {
+          Accept: 'application/json',
+        },
         body: new FormData(estimateForm),
       });
-      if (response.ok) {
-        estimateForm.reset();
-        if (formSuccess) {
-          formSuccess.style.display = 'block';
-          formSuccess.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }
-      } else {
-        alert('Something went wrong. Please call us directly at (801) 555-0000.');
+
+      if (!response.ok) {
+        throw new Error(`Form submission failed: ${response.status}`);
       }
-    } catch {
-      alert('Something went wrong. Please call us directly at (801) 555-0000.');
+
+      estimateForm.reset();
+
+      // Generate a fresh Turnstile token for another submission.
+      if (window.turnstile) {
+        window.turnstile.reset();
+      }
+
+      if (formSuccess) {
+        formSuccess.style.display = 'block';
+        formSuccess.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest',
+        });
+      }
+    } catch (error) {
+      console.error('Estimate form error:', error);
+
+      alert(
+        'Something went wrong. Please call us directly at (385) 245-8655.'
+      );
+
+      // Refresh the challenge after a failed attempt too.
+      if (window.turnstile) {
+        window.turnstile.reset();
+      }
     } finally {
-      btn.textContent = origText;
+      btn.innerHTML = originalContent;
       btn.disabled = false;
     }
   });
 }
-
 /* --- SMOOTH ANCHOR SCROLL (accounts for fixed header height) --- */
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', (e) => {
